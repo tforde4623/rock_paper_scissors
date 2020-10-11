@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Bullshit</title>
+</head>
+
+<body>
+
+    <h1 style="text-align: center;">Fucking ROCK PAPER SCISSORS MANN!</h1>
+    <h2 style="text-align: center;">Best of 3!! That's how it's done correctly.</h2>
+
+    <div style="text-align: center;">
+        <!-- rps play button -->
+        <input type="button" value="Play!!" onclick="rpsGame();" />
+    </div>
+
+    <script>
+
+        let choices = [{
+            "choice": "rock",
+            "beats": "scissors",
+            "losesTo": "paper"
+        }, {
+            "choice": "paper",
+            "beats": "rock",
+            "losesTo": "scissors"
+        }, {
+            "choice": "scissors",
+            "beats": "paper",
+            "losesTo": "rock"
+        }];
+
+        // simply function for a random number with a max
+        function getRandomInt() {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+
+        // function to alert if you won or lost at the end of the game (best of 3)
+        function winLose(wins, losses) {
+            if (wins === 2) {
+                alert(`You won the game!\nYou won 2 out of three.`);
+            } else if (losses === 2) {
+                alert(`You lost the game!\nThe computer won 2 out of three.`);
+            }
+        }
+
+        // actual rock paper scissors function
+        function rpsGame() {
+            //define wins and loses variables
+            let wins = 0;
+            let losses = 0;
+            let ties = 0;
+
+            while (wins < 2 && losses < 2) {
+
+                let playerChoice = prompt('Chose rock, paper, or scissors...');
+                let player2Choice = choices[getRandomInt(choices.length)].choice;
+                playerChoice = playerChoice.toLowerCase();
+
+                for (const gameTurn in choices) {
+
+                    if (playerChoice === choices[gameTurn].choice) {
+
+                        if (choices[gameTurn].losesTo.includes(player2Choice)) {
+                            losses++;
+                            alert(`You lost this hand! The computer chose ${player2Choice}.\n----------\nScore: ${wins}-${losses}`);
+                        }
+                        else if (choices[gameTurn].beats.includes(player2Choice)) {
+                            wins++
+                            alert(`You won this hand! The computer chose ${player2Choice}.\n----------\nScore: ${wins}-${losses}`);
+                        }
+                        else {
+                            ties++
+                            alert(`You tied this hand! The computer chose ${player2Choice}.\n----------\nScore: Still ${wins}-${losses}`);
+                        }
+                    }
+
+                }
+                if (playerChoice === null) {
+                    break
+                }
+            }
+
+            winLose(wins, losses);
+
+        }
+
+    </script>
+
+</body>
+
+</html>
